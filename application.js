@@ -6,6 +6,7 @@ const Intern = require("./lib/Intern");
 const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
+const axios = require('axios');
 
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
@@ -53,6 +54,7 @@ function addNewEmployee() {
         let email = answers.email;
         let gitHub = answers.gitHub;
         let jobRole = answers.jobRole;
+        
         if (answers.jobRole === 'Manager') {
             // console.log('getting here for manager')
             managerSpecificQuestions(name, email, gitHub, jobRole);
@@ -77,7 +79,7 @@ function managerSpecificQuestions(name, email, gitHub, jobRole) {
     ).then(function (answers) {
         let roomNumber = answers.roomNumber;
         team.push( new Manager (name, email, gitHub, jobRole, roomNumber));
-        console.log(team);
+        // console.log(team);
         anyOtherTeamMates();
     });
 };
@@ -93,7 +95,7 @@ function engineerSpecificQuestions(name, email, gitHub, jobRole) {
     ).then(function (answers) {
         let portfolio = answers.portfolio;
         team.push( new Engineer (name, email, gitHub, jobRole, portfolio));
-        console.log(team);
+        // console.log(team);
         anyOtherTeamMates();
     });
 };
@@ -109,7 +111,7 @@ function internSpecificQuestions(name, email, gitHub, jobRole) {
     ).then(function (answers) {
         let school = answers.school;
         team.push( new Intern(name, email,gitHub, jobRole, school));
-        console.log(team);
+        // console.log(team);
         anyOtherTeamMates();
     });
 };
@@ -132,18 +134,18 @@ function anyOtherTeamMates() {
             addNewEmployee();
         } else {
             const html = render(team); 
-            writeTeamHTML(html);
+            createHTML(html);
         }
     })
 };
 
-function writeTeamHTML(html) {
+function createHTML(html) {
     fs.writeFile('./output/team.html', html, (err) => {
         if (err) {
             return err;
         }
     
-        console.log('Team profiled generated and written to team.html in the output file.\r\nOpen team.html in a web browser to view your team profile.');
+        console.log('Team page generated to output folder.');
     })
 };
 
@@ -160,11 +162,3 @@ function writeTeamHTML(html) {
 // APPLICATION START
 
 addNewEmployee();
-
-
-
-// HINT: make sure to build out your classes first! Remember that your Manager, Engineer,
-// and Intern classes should all extend from a class named Employee; see the directions
-// for further information. Be sure to test out each class and verify it generates an 
-// object with the correct structure and methods. This structure will be crucial in order
-// for the provided `render` function to work!```
