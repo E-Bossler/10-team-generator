@@ -24,9 +24,9 @@ See below for questions for the engineer role:
 
 ![Image of Engineer Questions](./assets/images/engineer.png)
 
-See below for questions for the inter role:
+See below for questions for the intern role:
 
-![Image of Intern Questions](./assets/images/engineer.png)
+![Image of Intern Questions](./assets/images/intern.png)
 
 Following the inclusion of all of the team members, the user can select 'No, that's everyone' and they will be provided information about the generated html page. 
 
